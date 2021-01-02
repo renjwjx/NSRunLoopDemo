@@ -21,12 +21,12 @@
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    [self timer1];
+//    [self timer1];
     
-    [self addRunLoopObserver];
+//    [self addRunLoopObserver];
     
     //create子线程timer
-//    [NSThread detachNewThreadSelector:@selector(timer2) toTarget:self withObject:nil];
+    [NSThread detachNewThreadSelector:@selector(timer2) toTarget:self withObject:nil];
 }
 
 /*
@@ -82,6 +82,14 @@ void observerCallBack(CFRunLoopObserverRef observer, CFRunLoopActivity activity,
     //主动开启runloop
     //不停的run
     [[NSRunLoop currentRunLoop] run];
+    /*
+     可以换一个1 为条件
+     */
+//    while (1) {
+//        NSLog(@"runloop run -----");
+//        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
+//    }
+    
     // 运行3s， 退出，
 //    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:3]];
 }
@@ -90,8 +98,8 @@ void observerCallBack(CFRunLoopObserverRef observer, CFRunLoopActivity activity,
 //主线程timer1
 - (void)timer1
 {
-    NSTimer* timer = [NSTimer timerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
-        NSLog(@"timer1 fire ---%@ ", [NSRunLoop mainRunLoop].currentMode);
+    NSTimer* timer = [NSTimer timerWithTimeInterval:0.2 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        NSLog(@"+++++++++++++++++timer1 fire ---%@ ", [NSRunLoop mainRunLoop].currentMode);
     }];
     //NSDefaultRunLoopMode
     //    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
